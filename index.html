@@ -11,22 +11,23 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* Light gray background */
+            background-color: #1a1a2e; /* Dark background inspired by images */
+            color: #e0e0e0; /* Light text for contrast */
         }
         /* Custom scrollbar for content area */
         .scrollable-content::-webkit-scrollbar {
             width: 8px;
         }
         .scrollable-content::-webkit-scrollbar-track {
-            background: #e0e0e0;
+            background: #2a2a4a; /* Darker track */
             border-radius: 10px;
         }
         .scrollable-content::-webkit-scrollbar-thumb {
-            background: #888;
+            background: #6a0dad; /* Purple thumb */
             border-radius: 10px;
         }
         .scrollable-content::-webkit-scrollbar-thumb:hover {
-            background: #555;
+            background: #8e2de2; /* Lighter purple on hover */
         }
         /* Smooth scroll for anchor links */
         html {
@@ -37,6 +38,7 @@
             position: relative;
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
+            color: #ffffff; /* White title */
         }
         .chapter-title::after {
             content: '';
@@ -45,21 +47,58 @@
             bottom: 0;
             width: 50px;
             height: 4px;
-            background-color: #3b82f6; /* Blue accent */
+            background-color: #8e2de2; /* Purple accent */
             border-radius: 2px;
         }
         .section-title {
-            color: #1f2937; /* Darker gray for section titles */
+            color: #d0b8f7; /* Lighter purple for section titles */
         }
         .content-image {
-            border: 4px solid #e5e7eb; /* Light border around images */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for images */
+            border: 4px solid #3a3a5a; /* Darker border around images */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* More prominent shadow for images */
+        }
+        /* Ensure list styles are applied within prose */
+        .prose ul {
+            list-style-type: disc;
+            padding-left: 1.5em; /* Default indentation for ul */
+            color: #e0e0e0; /* Light text for list items */
+        }
+        .prose ul ul {
+            list-style-type: circle; /* Different bullet for nested lists */
+            padding-left: 1.5em;
+        }
+        .prose ul ul ul {
+            list-style-type: square; /* Different bullet for deeply nested lists */
+            padding-left: 1.5em;
+        }
+        .prose li {
+            margin-bottom: 0.5em; /* Spacing between list items */
+        }
+        /* Adjust prose colors for dark theme */
+        .prose p {
+            color: #e0e0e0;
+        }
+        .prose strong {
+            color: #ffffff; /* Strong text in white */
+        }
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #8e2de2;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
     <!-- Header -->
-    <header class="bg-gradient-to-r from-gray-800 to-gray-900 text-white p-4 shadow-lg rounded-b-lg">
+    <header class="bg-gradient-to-r from-purple-900 to-indigo-900 text-white p-4 shadow-lg rounded-b-lg">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
             <h1 class="text-3xl font-bold text-center md:text-left mb-2 md:mb-0">O Código Secreto da Viralização Dark</h1>
             <p class="text-sm text-gray-300">Helder Benni Alencar</p>
@@ -67,26 +106,28 @@
     </header>
 
     <!-- Main Content Area -->
-    <main class="container mx-auto my-8 p-4 flex-grow bg-white rounded-lg shadow-xl flex flex-col lg:flex-row">
+    <main class="container mx-auto my-8 p-4 flex-grow bg-gray-900 rounded-lg shadow-xl flex flex-col lg:flex-row">
         <!-- Sidebar for Table of Contents -->
-        <aside class="lg:w-1/4 p-4 bg-gray-50 rounded-lg shadow-md mb-6 lg:mb-0 lg:mr-6 overflow-y-auto max-h-[calc(100vh-180px)] scrollable-content">
-            <h2 class="text-xl font-semibold mb-4 text-gray-800">Sumário</h2>
+        <aside class="lg:w-1/4 p-4 bg-gray-800 rounded-lg shadow-md mb-6 lg:mb-0 lg:mr-6 overflow-y-auto max-h-[calc(100vh-180px)] scrollable-content">
+            <h2 class="text-xl font-semibold mb-4 text-white">Sumário</h2>
             <nav id="toc-nav">
                 <!-- Table of contents will be dynamically generated here -->
             </nav>
         </aside>
 
         <!-- Content Display Area -->
-        <section class="lg:w-3/4 p-6 bg-white rounded-lg shadow-md scrollable-content max-h-[calc(100vh-180px)]">
+        <section class="lg:w-3/4 p-6 bg-gray-800 rounded-lg shadow-md scrollable-content max-h-[calc(100vh-180px)]">
             <div id="content-display" class="prose max-w-none">
                 <!-- Content will be dynamically loaded here -->
+                <div class="loading-spinner"></div>
+                <p class="text-center text-gray-400">Gerando imagens e carregando conteúdo...</p>
             </div>
             <!-- Navigation Buttons -->
-            <div class="flex justify-between mt-8 pt-4 border-t border-gray-200">
-                <button id="prev-btn" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+            <div class="flex justify-between mt-8 pt-4 border-t border-gray-700">
+                <button id="prev-btn" class="bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
                     &larr; Anterior
                 </button>
-                <button id="next-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                <button id="next-btn" class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
                     Próximo &rarr;
                 </button>
             </div>
@@ -94,7 +135,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white text-center p-4 mt-8 rounded-t-lg">
+    <footer class="bg-gradient-to-r from-purple-900 to-indigo-900 text-white text-center p-4 mt-8 rounded-t-lg">
         <p>&copy; 2025 Helder Benni Alencar. Todos os direitos reservados.</p>
     </footer>
 
@@ -108,12 +149,12 @@
                     {
                         title: 'Por que vídeos dark e luxury lifestyle?',
                         text: `Vídeos "dark" e o nicho de "luxury lifestyle" permitem viralização sem exposição pessoal. A era digital oferece liberdade para criar e viralizar usando aspiração e desejo.`,
-                        image: { url: 'https://images.unsplash.com/photo-1616401640698-43306a48206d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Imagem de um laptop em um cenário luxuoso, com o rosto da pessoa não visível, simbolizando o luxo invisível.' }
+                        image: { alt: 'Imagem de um laptop em um cenário luxuoso, com o rosto da pessoa não visível, simbolizando o luxo invisível.' }
                     },
                     {
                         title: 'Minha jornada de crescimento com o \'Invisível\'.',
-                        text: `É possível construir um negócio digital que gera renda contínua. Este guia apresenta estratégias para crescimento explosivo sem exposição pessoal, utilizando o poder da Inteligência Artificial.`,
-                        image: { url: 'https://images.unsplash.com/photo-1620283086438-e6d8a3d7d7d0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Imagem de uma pessoa trabalhando em um laptop em um ambiente inspirador, com gráficos de crescimento ao fundo.' }
+                        text: `Descobri o potencial de construir um negócio digital que gera renda contínua, mesmo com recursos modestos. Este guia é a destilação de anos de aprendizado, focado em vídeos que trabalham por você 24/7. Se busca flexibilidade, nova fonte de renda ou crescimento explosivo sem exposição pessoal, este guia é para você. A Inteligência Artificial será sua aliada para construir um negócio online imparável.`,
+                        image: { alt: 'Imagem de uma pessoa trabalhando em um laptop em um ambiente inspirador, com gráficos de crescimento ao fundo.' }
                     }
                 ]
             },
@@ -123,13 +164,13 @@
                 sections: [
                     {
                         title: '1.1 O DNA do Instagram e TikTok para Vídeos Curtos: Como os algoritmos priorizam seu conteúdo para milhões.',
-                        text: `Para viralizar, entenda e use o algoritmo a seu favor. Algoritmos priorizam:<br><br><ul><li>**Tempo de Tela (Watch Time) e Repetição:** Quanto mais o usuário assiste e repete o vídeo, maior a distribuição. Vídeos curtos que prendem são ideais.</li><li>**Sinais de Engajamento:** Curtidas, comentários, compartilhamentos e salvamentos indicam alto valor. Salvamentos são um sinal forte de relevância.</li><li>**Originalidade do Áudio:** Usar áudios em alta ou criar áudios originais que viralizam recompensa o criador. Acompanhe as tendências.</li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1549692520-fd5c13ae6d20?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Imagem abstrata representando um algoritmo com setas e conexões, indicando fluxo de dados e viralização.' }
+                        text: `Para viralizar, entenda e use o algoritmo a seu favor. Algoritmos priorizam:<br><br><ul><li><strong>Tempo de Tela (Watch Time) e Repetição:</strong> Quanto mais o usuário assiste e repete o vídeo, maior a distribuição. Vídeos curtos que prendem são ideais.</li><li><strong>Sinais de Engajamento:</strong> Curtidas, comentários, compartilhamentos e salvamentos indicam alto valor. Salvamentos são um sinal forte de relevância.</li><li><strong>Originalidade do Áudio:</strong> Usar áudios em alta ou criar áudios originais que viralizam recompensa o criador. Acompanhe as tendências.</li></ul>`,
+                        image: { alt: 'Imagem abstrata representando um algoritmo com setas e conexões, indicando fluxo de dados e viralização.' }
                     },
                     {
                         title: '1.2 Ciclo de Vida de um Vídeo Viral: Da postagem ao pico de alcance.',
-                        text: `O algoritmo testa o vídeo em etapas:<br><br><ul><li>**Primeira Amostra:** Vídeo é mostrado a uma pequena parcela de usuários com interesses semelhantes.</li><li>**Avaliação de Desempenho:** Bom engajamento e watch time na amostra indicam qualidade.</li><li>**Expansão:** Vídeo é mostrado a um público cada vez maior, em ciclo exponencial. As primeiras horas são críticas para o desempenho inicial.</li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1620283086438-e6d8a3d7d7d0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Gráfico em forma de onda mostrando o crescimento exponencial de um vídeo viral ao longo do tempo.' }
+                        text: `O algoritmo testa o vídeo em etapas:<br><br><ul><li><strong>Primeira Amostra:</strong> Vídeo é mostrado a uma pequena parcela de usuários com interesses semelhantes.</li><li><strong>Avaliação de Desempenho:</strong> Bom engajamento e watch time na amostra indicam qualidade.</li><li><strong>Expansão:</strong> Vídeo é mostrado a um público cada vez maior, em ciclo exponencial. As primeiras horas são críticas para o desempenho inicial.</li></ul>`,
+                        image: { alt: 'Gráfico em forma de onda mostrando o crescimento exponencial de um vídeo viral ao longo do tempo.' }
                     }
                 ]
             },
@@ -139,18 +180,18 @@
                 sections: [
                     {
                         title: '2.1 Conceito de Vídeo Dark: Definição e por que funciona para viralizar.',
-                        text: `Vídeos "dark" não expõem o criador, baseando-se em narrativas visuais e textuais com banco de imagens ou animações. Funcionam porque:<br><br><ul><li>**Alto Valor Percebido sem Exposição Pessoal:** Permite que o espectador se projete no cenário de luxo.</li><li>**Atração pela Aspiração e Fantasia:** Apela aos sonhos de liberdade financeira e bens de alto valor, criando uma fuga e um objetivo.</li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1517457210940-f2f643e215f7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Silhueta de uma pessoa assistindo a um vídeo de luxo em uma tela, com o rosto oculto.' }
+                        text: `Vídeos "dark" não expõem o criador, baseando-se em narrativas visuais e textuais com banco de imagens ou animações. Funcionam porque:<br><br><ul><li><strong>Alto Valor Percebido sem Exposição Pessoal:</strong> Permite que o espectador se projete no cenário de luxo.</li><li><strong>Atração pela Aspiração e Fantasia:</strong> Apela aos sonhos de liberdade financeira e bens de alto valor, criando uma fuga e um objetivo.</li></ul>`,
+                        image: { alt: 'Silhueta de uma pessoa assistindo a um vídeo de luxo em uma tela, com o rosto oculto.' }
                     },
                     {
                         title: '2.2 Escolhendo seu Sub-nicho de Luxo: Não é só "carro caro".',
-                        text: `Escolha um sub-nicho específico para atrair um público fiel:<br><br><ul><li>**Viagens de Luxo:** Foco em jatos, iates, ilhas exclusivas, resorts 5 estrelas.</li><li>**Mansões e Arquitetura de Alto Padrão:** Destaque interiores, piscinas infinitas, vistas panorâmicas.</li><li>**Relógios e Joias Exclusivas:** Detalhes de artesanato e marcas icônicas.</li><li>**Estilo de Vida de Sucesso:** Rotina de trabalho remoto em cenários paradisíacos, reuniões estratégicas.</li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1549692520-fd5c13ae6d20?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Colagem de imagens representando diferentes aspectos do luxo: um iate, uma mansão, um relógio de pulso e uma pessoa trabalhando em um resort.' }
+                        text: `Escolha um sub-nicho específico para atrair um público fiel:<br><br><ul><li><strong>Viagens de Luxo:</strong> Foco em jatos, iates, ilhas exclusivas, resorts 5 estrelas.</li><li><strong>Mansões e Arquitetura de Alto Padrão:</strong> Destaque interiores, piscinas infinitas, vistas panorâmicas.</li><li><strong>Relógios e Joias Exclusivas:</strong> Detalhes de artesanato e marcas icônicas.</li><li><strong>Estilo de Vida de Sucesso:</strong> Rotina de trabalho remoto em cenários paradisíacos, CEOs em reuniões estratégicas.</li></ul>`,
+                        image: { alt: 'Colagem de imagens representando diferentes aspectos do luxo: um iate, uma mansão, um relógio de pulso e uma pessoa trabalhando em um resort.' }
                     },
                     {
                         title: '2.3 Fonte de Conteúdo para Vídeos Dark: Onde encontrar e como usar sem direitos autorais.',
-                        text: `Encontre vídeos de alta qualidade com licença para uso comercial:<br><br><ul><li>**Bancos de Vídeo Gratuitos e Pagos:**<br><ul><li>**Pexels e Pixabay:** Vídeos gratuitos em alta resolução. Use termos como "luxury", "success", "mansion", "yacht", "travel", "CEO life".</li><li>**Unsplash:** Fotos para transformar em vídeos com movimento de câmera.</li><li>**Envato Elements (pago):** Biblioteca de vídeos premium com licença.</li></ul></li><li>**Conteúdo de Criadores com Permissão:** Verifique sempre a licença para atribuição.</li><li>**Ferramentas de Edição:**<br><ul><li>**CapCut (gratuito):** Cortar, adicionar texto, áudios, efeitos, transições.</li><li>**InShot (gratuito):** Filtros, trilhas sonoras, transições básicas.</li></ul></li></ul>**Transformação do Conteúdo:** Edite, corte partes impactantes, adicione zoom e movimento para dinamizar o vídeo.`,
-                        image: { url: 'https://images.unsplash.com/photo-1593642532781-03d790479d72?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Ícones de plataformas de bancos de vídeo como Pexels, Pixabay e Envato Elements, com um ícone de tesoura representando edição.' }
+                        text: `Encontre vídeos de alta qualidade com licença para uso comercial:<br><br><ul><li><strong>Bancos de Vídeo Gratuitos e Pagos:</strong><ul><li>Pexels e Pixabay: Vídeos gratuitos em alta resolução. Use termos como "luxury", "success", "mansion", "yacht", "travel", "CEO life".</li><li>Unsplash: Fotos para transformar em vídeos com movimento de câmera.</li><li>Envato Elements (pago): Biblioteca de vídeos premium com licença.</li></ul></li><li><strong>Conteúdo de Criadores com Permissão:</strong> Verifique sempre a licença para atribuição.</li><li><strong>Ferramentas de Edição:</strong><ul><li>CapCut (gratuito): Cortar, adicionar texto, áudios, efeitos, transições.</li><li>InShot (gratuito): Filtros, trilhas sonoras, transições básicas.</li></ul></li></ul><strong>Transformação do Conteúdo:</strong> Edite, corte partes impactantes, adicione zoom e movimento para dinamizar o vídeo.`,
+                        image: { alt: 'Ícones de plataformas de bancos de vídeo como Pexels, Pixabay e Envato Elements, com um ícone de tesoura representando edição.' }
                     }
                 ]
             },
@@ -160,23 +201,23 @@
                 sections: [
                     {
                         title: '3.1 A Força do Gancho Visual e Sonoro: Prenda em 3 segundos.',
-                        text: `O texto e o som são essenciais para a narrativa.<br><br><ul><li>**Cenas Chocantes, Inspiradoras ou Curiosas:** Comece com o vídeo mais impactante. Ex: transição de carro simples para superesportivo, vista de mansão, relógio brilhando.</li><li>**Uso Estratégico de Transições Rápidas:** Cortes rápidos e transições dinâmicas mantêm a atenção.</li><li>**Áudios em Alta:** Use músicas ou sons viralizando para engajar o público. Combine a batida com os cortes visuais.</li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1616401640698-43306a48206d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Uma cena de um relógio de luxo brilhando, com um efeito de zoom e notas musicais flutuando.' }
+                        text: `O texto e o som são essenciais para a narrativa.<br><br><ul><li><strong>Cenas Chocantes, Inspiradoras ou Curiosas:</strong> Comece com o vídeo mais impactante. Ex: transição de carro simples para superesportivo, vista de mansão, relógio brilhando.</li><li><strong>Uso Estratégico de Transições Rápidas:</strong> Cortes rápidos e transições dinâmicas mantêm a atenção.</li><li><strong>Áudios em Alta:</strong> Use músicas ou sons viralizando para engajar o público. Combine a batida com os cortes visuais.</li></ul>`,
+                        image: { alt: 'Uma cena de um relógio de luxo brilhando, com um efeito de zoom e notas musicais flutuando.' }
                     },
                     {
                         title: '3.2 O Poder do Texto na Tela (Copywriting Viral): O que escrever para prender e converter.',
-                        text: `O texto na tela guia o espectador e ativa gatilhos mentais:<br><br><ul><li>**Frases Incompletas:** Geram curiosidade. Ex: "O segredo que os ricos NÃO querem que você saiba..."</li><li>**Perguntas Retóricas:** Ativam dor/desejo. Ex: "Você se sente preso?"</li><li>**Comandos Indiretos:** Incentivam a ação. Ex: "Pense nisso."</li></ul>**Exemplos de Textos para Luxury Lifestyle:**<br><ul><li>Jatinho: "De passageiro a dono do próprio destino. Quer saber como?"</li><li>Mansão: "Isso não é só uma casa. É o resultado de uma decisão."</li><li>Notebook em cenário paradisíaco: "Trabalho remoto + vida de luxo: A fórmula que escondem de você."</li><li>Geral: "Não é sorte. É método." "Sua liberdade começa AGORA." "O caminho para o luxo está aqui."</li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1517457210940-f2f643e215f7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Uma tela de celular mostrando um vídeo com texto impactante sobreposto, com balões de fala e uma caneta ao lado.' }
+                        text: `O texto na tela guia o espectador e ativa gatilhos mentais:<br><br><ul><li><strong>Frases Incompletas:</strong> Geram curiosidade. Ex: "O segredo que os ricos NÃO querem que você saiba..."</li><li><strong>Perguntas Retóricas:</strong> Ativam dor/desejo. Ex: "Você se sente preso?"</li><li><strong>Comandos Indiretos:</strong> Incentivam a ação. Ex: "Pense nisso."</li></ul><strong>Exemplos de Textos para Luxury Lifestyle:</strong><br><ul><li>Jatinho: "De passageiro a dono do próprio destino. Quer saber como?"</li><li>Mansão: "Isso não é só uma casa. É o resultado de uma decisão."</li><li>Notebook em cenário paradisíaco: "Trabalho remoto + vida de luxo: A fórmula que escondem de você."</li><li>Geral: "Não é sorte. É método." "Sua liberdade começa AGORA." "O caminho para o luxo está aqui."</li></ul>`,
+                        image: { alt: 'Uma tela de celular mostrando um vídeo com texto impactante sobreposto, com balões de fala e uma caneta ao lado.' }
                     },
                     {
                         title: '3.3 Estruturas de Roteiro Validadas para Viralização Dark:',
-                        text: `Estruturas de roteiro simples e poderosas:<br><br><ul><li>**"O Segredo que os Ricos Não Querem que Você Saiba..."**<br><ul><li>**Gancho (1-3s):** Cena luxuosa. Texto: "O segredo que os ricos NÃO querem que você saiba..."</li><li>**Dor (3-7s):** Cena de frustração. Texto: "Você está preso na rotina? Sonha com isso, mas não sabe como chegar lá?"</li><li>**Solução (7-12s):** Cenas de transformação. Texto: "A verdade é que a IA e um método simples podem te levar até lá."</li><li>**CTA (12-15s):** Cena aspiracional. Texto: "Siga o perfil para desvendar esse código secreto e transformar sua realidade!"</li></ul></li><li>**"Eu Trabalhava 8h/dia... Até Descobrir ISSO"**<br><ul><li>**Gancho (1-3s):** Cena de liberdade/luxo. Texto: "Eu TRABALHAVA 8h por dia... até descobrir ISSO!"</li><li>**Antes (3-7s):** Cena de rotina cansativa. Texto: "Antes: Exaustão, sem tempo, sem dinheiro..."</li><li>**Depois (7-12s):** Cenas aspiracionais. Texto: "Agora: Liberdade de tempo e renda com a internet!"</li><li>**CTA (12-15s):** Cena luxuosa. Texto: "Quer a fórmula? SIGA o perfil para o passo a passo completo!"</li></ul></li><li>**"O #1 Erro de Quem Sonha com [Luxo/Liberdade]"**<br><ul><li>**Gancho (1-3s):** Cena luxuosa ou frustrada. Texto: "Você está cometendo o ERRO #1 que MATA seu sonho de [Luxo/Liberdade]!"</li><li>**Erro Comum (3-8s):** Cenas de busca por "fórmulas mágicas". Texto: "Achar que é só 'clicar' ou 'ficar rico rápido'."</li><li>**Solução (8-13s):** Cenas de trabalho focado. Texto: "É construção REAL, paciente e estratégica. E você já tem as ferramentas!"</li><li>**CTA (13-15s):** Cena determinada. Texto: "PARE de cometer esse erro! SIGA para o caminho CERTO!"</li></ul></li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1517457210940-f2f643e215f7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Fluxograma simples com caixas de texto e setas, representando as estruturas de roteiro para vídeos virais.' }
+                        text: `Estruturas de roteiro simples e poderosas, utilizando apenas cenas de luxo e aspiracionais:<br><br><ul><li><strong>"O Segredo que os Ricos Não Querem que Você Saiba..."</strong><ul><li><strong>Gancho (1-3s):</strong> Cena luxuosa impactante (iate, relógio, carro). Texto na tela: "O segredo que os ricos NÃO querem que você saiba..."</li><li><strong>Aspiração (3-7s):</strong> Cena de luxo aspiracional (viagem, mansão). Texto: "Imagine essa vida para você. É mais acessível do que pensa."</li><li><strong>Solução (7-12s):</strong> Cenas de transformação, liberdade, trabalho remoto, mantendo o luxo. Texto: "A verdade é que a IA e um método simples podem te levar até lá."</li><li><strong>CTA (12-15s):</strong> Cena aspiracional final. Texto: "Siga o perfil para desvendar esse código secreto e transformar sua realidade!"</li></ul></li><li><strong>"Transformei meu tempo e renda... Descobri ISSO!"</strong><ul><li><strong>Gancho (1-3s):</strong> Cena de liberdade/luxo (praia, trabalhando de um resort). Texto: "Transformei meu tempo e renda... Descobri ISSO!"</li><li><strong>Contraste (3-7s):</strong> Cena de um ambiente de trabalho comum, mas com foco na aspiração (ex: laptop em mesa de escritório elegante, relógio de luxo no pulso). Texto: "De uma rotina comum para a liberdade que você busca..."</li><li><strong>Depois (7-12s):</strong> Cenas aspiracionais (viagem, computador em lugar bonito). Texto: "Agora: Liberdade de tempo e renda com a internet!"</li><li><strong>CTA (12-15s):</strong> Cena luxuosa. Texto: "Quer a fórmula? SIGA o perfil para o passo a passo completo!"</li></ul></li><li><strong>"O #1 Erro de Quem Sonha com [Luxo/Liberdade]"</strong><ul><li><strong>Gancho (1-3s):</strong> Cena luxuosa. Texto: "Você está cometendo o ERRO #1 que MATA seu sonho de [Luxo/Liberdade]!"</li><li><strong>Erro Comum (3-8s):</strong> Cenas de luxo, mas com um texto que aborda o erro (ex: pessoa em jatinho, mas o texto fala sobre a mentalidade errada de "ficar rico rápido"). Texto: "Achar que é só 'clicar' ou 'ficar rico rápido' sem método."</li><li><strong>Solução (8-13s):</strong> Cenas de trabalho focado, crescimento gradual (em cenários aspiracionais). Texto: "É construção REAL, paciente e estratégica. E você já tem as ferramentas!"</li><li><strong>CTA (13-15s):</strong> Cena de luxo aspiracional. Texto: "PARE de cometer esse erro! SIGA para o caminho CERTO!"</li></ul></li></ul>`,
+                        image: { alt: 'Fluxograma simples com caixas de texto e setas, representando as estruturas de roteiro para vídeos virais.' }
                     },
                     {
                         title: '3.4 Edição Profissional (sem ser editor): Ferramentas e truques rápidos.',
-                        text: `Ferramentas gratuitas são poderosas para edição:<br><br><ul><li>**CapCut:** Intuitivo e rico em recursos.<br><ul><li>**Cortes Rápidos:** Cenas de 2-3 segundos no máximo.</li><li>**Sobreposições de Texto:** Fontes legíveis, contraste, tempo certo.</li><li>**Efeitos e Transições:** Use com moderação (flash white, zoom in/out).</li><li>**Áudios:** Ajuste volume da música para destacar o texto.</li></ul></li><li>**InShot:** Ótima opção para iniciantes, com filtros, trilhas sonoras e transições básicas.</li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1593642532781-03d790479d72?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Ícones de aplicativos de edição de vídeo como CapCut e InShot, com uma linha do tempo de edição ao fundo.' }
+                        text: `Ferramentas gratuitas são poderosas para edição:<br><br><ul><li><strong>CapCut:</strong> Intuitivo e rico em recursos.<br><ul><li><strong>Cortes Rápidos:</strong> Cenas de 2-3 segundos no máximo.</li><li><strong>Sobreposições de Texto:</strong> Fontes legíveis, contraste, tempo certo.</li><li><strong>Efeitos e Transições:</strong> Use com moderação (flash white, zoom in/out).</li><li><strong>Áudios:</strong> Ajuste volume da música para destacar o texto.</li></ul></li><li><strong>InShot:</strong> Ótima opção para iniciantes, com filtros, trilhas sonoras e transições básicas.</li></ul>`,
+                        image: { alt: 'Ícones de aplicativos de edição de vídeo como CapCut e InShot, com uma linha do tempo de edição ao fundo.' }
                     }
                 ]
             },
@@ -186,13 +227,13 @@
                 sections: [
                     {
                         title: '4.1 Anatomia da Hashtag Viral: Como escolher e usar para máximo alcance.',
-                        text: `Hashtags e SEO são cruciais para o algoritmo. A estratégia é essencial:<br><br><ul><li>**Hashtags de Nicho (Específicas):** Use termos que o público-alvo pesquisa. Ex: #MillionaireMindset, #LuxuryLifestyle.</li><li>**Hashtags de Tendência (Voláteis):** Acompanhe o que está em alta no TikTok e Instagram. Use rapidamente.</li><li>**Hashtags de Comunidade (Conexão):** Crie senso de pertencimento. Ex: #NomadeDigital, #EmpreendedorismoDigital.</li></ul>**Mix de Volume:**<br><ul><li>**Altas buscas (1M+):** Para alcance amplo (ex: #Dinheiro).</li><li>**Médias buscas (100K-1M):** Equilíbrio entre alcance e segmentação (ex: #LiberdadeFinanceira).</li><li>**Baixas buscas (10K-100K):** Para públicos específicos e qualificados (ex: #MarketingDigitalParaIniciantes).</li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1517457210940-f2f643e215f7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Uma nuvem de hashtags com diferentes tamanhos e cores, representando a diversidade e estratégia de uso.' }
+                        text: `Hashtags e SEO são cruciais para o algoritmo. A estratégia é essencial:<br><br><ul><li><strong>Hashtags de Nicho (Específicas):</strong> Use termos que o público-alvo pesquisa. Ex: #MillionaireMindset, #LuxuryLifestyle.</li><li><strong>Hashtags de Tendência (Voláteis):</strong> Acompanhe o que está em alta no TikTok e Instagram. Use rapidamente.</li><li><strong>Hashtags de Comunidade (Conexão):</strong> Crie senso de pertencimento. Ex: #NomadeDigital, #EmpreendedorismoDigital.</li></ul><strong>Mix de Volume:</strong><br><ul><li><strong>Altas buscas (1M+):</strong> Para alcance amplo (ex: #Dinheiro).</li><li><strong>Médias buscas (100K-1M):</strong> Equilíbrio entre alcance e segmentação (ex: #LiberdadeFinanceira).</li><li><strong>Baixas buscas (10K-100K):</strong> Para públicos específicos e qualificados (ex: #MarketingDigitalParaIniciantes).</li></ul>`,
+                        image: { alt: 'Uma nuvem de hashtags com diferentes tamanhos e cores, representando a diversidade e estratégia de uso.' }
                     },
                     {
                         title: '4.2 SEO Oculto em Vídeos Dark: Use palavras-chave na fala (se houver), legendas e descrições.',
-                        text: `O algoritmo entende o vídeo para direcionar ao público certo:<br><br><ul><li>**Palavras-chave na Fala (se houver):** Inclua palavras-chave relevantes se usar voz artificial ou própria. O algoritmo processa o áudio.</li><li>**Legendas:** Inclua palavras-chave principais na legenda do Reel/TikTok. São indexáveis.</li><li>**Descrições:** Use parágrafo inicial com palavras-chave relevantes. Pense no que o usuário digitaria para encontrar o vídeo.<br>Ex: "Descubra como [palavra-chave 1] pode te levar a [palavra-chave 2] com o poder de [palavra-chave 3] e a inteligência artificial."</li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1549692520-fd5c13ae6d20?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Uma lupa sobre um texto com palavras-chave destacadas, simbolizando a otimização para motores de busca.' }
+                        text: `O algoritmo entende o vídeo para direcionar ao público certo:<br><br><ul><li><strong>Palavras-chave na Fala (se houver):</strong> Inclua palavras-chave relevantes se usar voz artificial ou própria. O algoritmo processa o áudio.</li><li><strong>Legendas:</strong> Inclua palavras-chave principais na legenda do Reel/TikTok. São indexáveis.</li><li><strong>Descrições:</strong> Use parágrafo inicial com palavras-chave relevantes. Pense no que o usuário digitaria para encontrar o vídeo.<br>Ex: "Descubra como [palavra-chave 1] pode te levar a [palavra-chave 2] com o poder de [palavra-chave 3] e a inteligência artificial."</li></ul>`,
+                        image: { alt: 'Uma lupa sobre um texto com palavras-chave destacadas, simbolizando a otimização para motores de busca.' }
                     }
                 ]
             },
@@ -202,18 +243,18 @@
                 sections: [
                     {
                         title: '5.1 A Bio Perfeita para Luxury Lifestyle (com CTA):',
-                        text: `Visualizações são importantes, mas a conversão é essencial. A bio e o link são seus vendedores silenciosos.<br><br>Sua bio é seu cartão de visitas, com gancho aspiracional e CTA claro:<br><br><ul><li>**Gancho Aspiracional:** Frase que remeta ao sonho. Ex: "Mostro o caminho para o luxo que você merece 💰"</li><li>**Prova de Autoridade (sutil):** Posicione-se como especialista. Ex: "Especialista em Viralização Dark e Renda Online"</li><li>**CTA para o Link:** Chamada mais importante. Ex: "Comece sua Jornada de Luxo AQUI! 👇"</li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1517457210940-f2f643e215f7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Uma tela de perfil de rede social com uma biografia otimizada, destacando um gancho aspiracional e um CTA.' }
+                        text: `Visualizações são importantes, mas a conversão é essencial. A bio e o link são seus vendedores silenciosos.<br><br>Sua bio é seu cartão de visitas, com gancho aspiracional e CTA claro:<br><br><ul><li><strong>Gancho Aspiracional:</strong> Frase que remeta ao sonho. Ex: "Mostro o caminho para o luxo que você merece 💰"</li><li><strong>Prova de Autoridade (sutil):</strong> Posicione-se como especialista. Ex: "Especialista em Viralização Dark e Renda Online"</li><li><strong>CTA para o Link:</strong> Chamada mais importante. Ex: "Comece sua Jornada de Luxo AQUI! 👇"</li></ul>`,
+                        image: { alt: 'Uma tela de perfil de rede social com uma biografia otimizada, destacando um gancho aspiracional e um CTA.' }
                     },
                     {
                         title: '5.2 O Link na Bio: Seu Ponto de Conversão:',
-                        text: `Use ferramentas como Linktree, Shorby ou Klickpages para criar uma "árvore de links":<br><br><ul><li>**Organização para Diferentes Ofertas:** Botões claros para:<br><ul><li>E-book "O Código Secreto da Viralização Dark".</li><li>E-book principal "Guia do Início do Zero".</li><li>Mini-curso.</li><li>WhatsApp (para suporte/mentoria).</li></ul></li><li>**Chamadas Claras para a Ação:** Texto convidativo ao clique. Ex: "BAIXE: O Código Secreto da Viralização Dark"</li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1549692520-fd5c13ae6d20?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Uma tela de celular mostrando uma árvore de links com múltiplos botões de CTA.' }
+                        text: `Use ferramentas como Linktree, Shorby ou Klickpages para criar uma "árvore de links":<br><br><ul><li><strong>Organização para Diferentes Ofertas:</strong> Botões claros para:<br><ul><li>E-book "O Código Secreto da Viralização Dark".</li><li>E-book principal "Guia do Início do Zero".</li><li>Mini-curso.</li><li>WhatsApp (para suporte/mentoria).</li></ul></li><li><strong>Chamadas Claras para a Ação:</strong> Texto convidativo ao clique. Ex: "BAIXE: O Código Secreto da Viralização Dark"</li></ul>`,
+                        image: { alt: 'Uma tela de celular mostrando uma árvore de links com múltiplos botões de CTA.' }
                     },
                     {
                         title: '5.3 Stories Estratégicos para Perfis Dark: Engajamento e transição para venda.',
-                        text: `Stories devem ter um toque pessoal, mesmo em perfis dark (voz por trás de imagem estática ou tela gravada):<br><br><ul><li>**Enquetes:** Sobre aspirações financeiras. Ex: "Você sonha em viajar de jatinho?"</li><li>**Caixas de Perguntas:** Sobre o "caminho" para o luxo.</li><li>**Slides com Trechos do Produto:** Mostre uma página impactante do e-book. Ex: "Um pedacinho do que te espera no meu guia secreto..."</li><li>**Chamadas para o Link na Bio:** "Quer saber mais sobre como alcançar essa vida de luxo invisível? O link na bio tem o mapa completo!"</li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1593642532781-03d790479d72?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Uma série de stories de Instagram com enquetes, caixas de perguntas e CTAs para o link na bio.' }
+                        text: `Stories devem ter um toque pessoal, mesmo em perfis dark (voz por trás de imagem estática ou tela gravada):<br><br><ul><li><strong>Enquetes:</strong> Sobre aspirações financeiras. Ex: "Você sonha em viajar de jatinho?"</li><li><strong>Caixas de Perguntas:</strong> Sobre o "caminho" para o luxo.</li><li><strong>Slides com Trechos do Produto:</strong> Mostre uma página impactante do e-book. Ex: "Um pedacinho do que te espera no meu guia secreto..."</li><li><strong>Chamadas para o Link na Bio:</strong> "Quer saber mais sobre como alcançar essa vida de luxo invisível? O link na bio tem o mapa completo!"</li></ul>`,
+                        image: { alt: 'Uma série de stories de Instagram com enquetes, caixas de perguntas e CTAs para o link na bio.' }
                     }
                 ]
             },
@@ -223,18 +264,18 @@
                 sections: [
                     {
                         title: '6.1 Descobrindo Seus Melhores Horários:',
-                        text: `A consistência é a base do sucesso. Descubra seu melhor horário analisando métricas:<br><br><ul><li>**Onde Encontrar os Dados:**<br><ul><li>**Instagram Insights (Perfil Profissional):** "Insights" -> "Público" -> "Horários mais ativos".</li><li>**TikTok Analytics (Perfil Pro):** "Visão geral" -> "Atividade dos seguidores".</li></ul></li><li>**Como Interpretar:** Observe picos de atividade. Poste 15-30 minutos antes para pegar a audiência online.</li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1549692520-fd5c13ae6d20?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Um gráfico de barras mostrando os horários de pico de atividade de usuários em uma plataforma de mídia social.' }
+                        text: `A consistência é a base do sucesso. Descubra seu melhor horário analisando métricas:<br><br><ul><li><strong>Onde Encontrar os Dados:</strong><br><ul><li><strong>Instagram Insights (Perfil Profissional):</strong> "Insights" -> "Público" -> "Horários mais ativos".</li><li><strong>TikTok Analytics (Perfil Pro):</strong> "Visão geral" -> "Atividade dos seguidores".</li></ul></li><li><strong>Como Interpretar:</strong> Observe picos de atividade. Poste 15-30 minutos antes para pegar a audiência online.</li></ul>`,
+                        image: { alt: 'Um gráfico de barras mostrando os horários de pico de atividade de usuários em uma plataforma de mídia social.' }
                     },
                     {
                         title: '6.2 Frequência e Consistência: O Segredo da Viralização Contínua.',
-                        text: `<ul><li>**Alta Frequência (3-4 vídeos/dia):** Acelera a viralização, aumentando chances e recompensas do algoritmo por perfis ativos.</li><li>**Cronograma de Postagens:** Mantenha um calendário. Planeje Reels com antecedência. A simplicidade é crucial no início.</li></ul>`,
-                        image: { url: 'https://images.unsplash.com/photo-1620283086438-e6d8a3d7d7d0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Um calendário com várias postagens marcadas, simbolizando a consistência na criação de conteúdo.' }
+                        text: `<ul><li><strong>Alta Frequência (3-4 vídeos/dia):</strong> Acelera a viralização, aumentando chances e recompensas do algoritmo por perfis ativos.</li><li><strong>Cronograma de Postagens:</strong> Mantenha um calendário. Planeje Reels com antecedência. A simplicidade é crucial no início.</li></ul>`,
+                        image: { alt: 'Um calendário com várias postagens marcadas, simbolizando a consistência na criação de conteúdo.' }
                     },
                     {
                         title: '6.3 Análise de Métricas para Otimização (Simples e Direta):',
-                        text: `Foque nas métricas essenciais para viralização:<br><br><ul><li>**Alcance e Impressões:** Verifique o crescimento. Se não, revise ganchos e hashtags.</li><li>**Tempo de Exibição (Watch Time):** Avalie se o vídeo está sendo assistido por completo. Melhore o gancho ou ritmo.</li><li>**Taxa de Engajamento:** Curtidas, comentários, compartilhamentos e salvamentos. Conteúdo salvo é um sinal forte para o algoritmo. Se baixo, a copy ou valor entregue podem não estar conectando.</li></ul>**Ajuste e Teste:** Use os números para identificar o que funciona e o que precisa ser ajustado. Testes contínuos garantem a prosperidade do negócio a longo prazo.`,
-                        image: { url: 'https://images.unsplash.com/photo-1549692520-fd5c13ae6d20?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Um painel de controle com gráficos e estatísticas de mídias sociais, mostrando alcance, watch time e engajamento.' }
+                        text: `Foque nas métricas essenciais para viralização:<br><br><ul><li><strong>Alcance e Impressões:</strong> Verifique o crescimento. Se não, revise ganchos e hashtags.</li><li><strong>Tempo de Exibição (Watch Time):</strong> Avalie se o vídeo está sendo assistido por completo. Melhore o gancho ou ritmo.</li><li><strong>Taxa de Engajamento:</strong> Curtidas, comentários, compartilhamentos e salvamentos. Conteúdo salvo é um sinal forte para o algoritmo. Se baixo, a copy ou valor entregue podem não estar conectando.</li></ul><strong>Ajuste e Teste:</strong> Use os números para identificar o que funciona e o que precisa ser ajustado. Testes contínuos garantem a prosperidade do negócio a longo prazo.`,
+                        image: { alt: 'Um painel de controle com gráficos e estatísticas de mídias sociais, mostrando alcance, watch time e engajamento.' }
                     }
                 ]
             },
@@ -244,8 +285,8 @@
                 sections: [
                     {
                         title: 'Conclusão',
-                        text: `Você desvendou o Código Secreto da Viralização Dark, dominando o luxury lifestyle no Instagram e TikTok para viralizar sem mostrar o rosto e construir uma audiência engajada.<br><br>Pilares essenciais:<br><br><ul><li>**Entenda o Algoritmo:** Use-o como aliado, focando em watch time e engajamento.</li><li>**Crie Conteúdo Irresistível:** Ganchos poderosos, textos estratégicos e áudios virais.</li><li>**Otimize seu Perfil:** Bio convidativa e link que converte.</li><li>**Seja Consistente:** Alta frequência e análise de métricas para crescimento contínuo.</li></ul>Aplique estas estratégias, seja consistente e transforme sua realidade, construindo um negócio online que gere renda e reflita seus valores. O sucesso digital é acessível para quem age. Aja!`,
-                        image: { url: 'https://images.unsplash.com/photo-1517457210940-f2f643e215f7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', alt: 'Uma mão segurando um passaporte com um carimbo de "Sucesso Digital" e ao fundo uma paisagem de luxo.' }
+                        text: `Você desvendou o Código Secreto da Viralização Dark, dominando o luxury lifestyle no Instagram e TikTok para viralizar sem mostrar o rosto e construir uma audiência engajada.<br><br>Pilares essenciais:<br><br><ul><li><strong>Entenda o Algoritmo:</strong> Use-o como aliado, focando em watch time e engajamento.</li><li><strong>Crie Conteúdo Irresistível:</strong> Ganchos poderosos, textos estratégicos e áudios virais.</li><li><strong>Otimize seu Perfil:</strong> Bio convidativa e link que converte.</li><li><strong>Seja Consistente:</strong> Alta frequência e análise de métricas para crescimento contínuo.</li></ul>Aplique estas estratégias, seja consistente e transforme sua realidade, construindo um negócio online que gere renda e reflita seus valores. O sucesso digital é acessível para quem age. Aja!`,
+                        image: { alt: 'Uma mão segurando um passaporte com um carimbo de "Sucesso Digital" e ao fundo uma paisagem de luxo.' }
                     }
                 ]
             }
@@ -259,13 +300,45 @@
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
 
+        // Function to generate image based on alt text
+        async function generateImage(prompt) {
+            const payload = { instances: { prompt: prompt }, parameters: { "sampleCount": 1} };
+            const apiKey = ""; // If you want to use models other than imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error("Erro na chamada da API de geração de imagem:", response.status, response.statusText, errorText);
+                    return ''; // Retorna string vazia em caso de erro
+                }
+
+                const result = await response.json();
+                if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+                    return `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+                } else {
+                    console.error("Erro ao gerar imagem: Estrutura de resposta inesperada ou conteúdo ausente.", result);
+                    return ''; // Retorna string vazia em caso de erro
+                }
+            } catch (error) {
+                console.error("Erro na chamada da API de geração de imagem:", error);
+                return ''; // Retorna string vazia em caso de erro
+            }
+        }
+
         // Function to render the table of contents
         function renderTableOfContents() {
             tocNav.innerHTML = ''; // Clear previous TOC
             ebookContent.forEach((chapter, chapterIndex) => {
                 const chapterLink = document.createElement('a');
                 chapterLink.href = '#';
-                chapterLink.className = 'block py-2 px-3 text-gray-700 hover:bg-gray-200 rounded-md transition duration-200 ease-in-out';
+                chapterLink.className = 'block py-2 px-3 text-gray-300 hover:bg-gray-700 rounded-md transition duration-200 ease-in-out';
                 chapterLink.innerHTML = `<span class="font-semibold">${chapter.title}</span>`;
                 chapterLink.onclick = (e) => {
                     e.preventDefault();
@@ -278,12 +351,12 @@
                 // Add sections as nested links
                 if (chapter.sections && chapter.sections.length > 0) {
                     const sectionList = document.createElement('ul');
-                    sectionList.className = 'ml-4 border-l border-gray-300';
+                    sectionList.className = 'ml-4 border-l border-gray-700';
                     chapter.sections.forEach((section, sectionIndex) => {
                         const sectionItem = document.createElement('li');
                         const sectionLink = document.createElement('a');
                         sectionLink.href = '#';
-                        sectionLink.className = 'block py-1 px-3 text-sm text-gray-600 hover:bg-gray-100 rounded-md transition duration-200 ease-in-out';
+                        sectionLink.className = 'block py-1 px-3 text-sm text-gray-400 hover:bg-gray-700 rounded-md transition duration-200 ease-in-out';
                         sectionLink.textContent = section.title;
                         sectionLink.onclick = (e) => {
                             e.preventDefault();
@@ -300,7 +373,7 @@
         }
 
         // Function to display content
-        function displayContent() {
+        async function displayContent() {
             const chapter = ebookContent[currentChapterIndex];
             if (!chapter) {
                 console.error("Chapter not found.");
@@ -313,12 +386,23 @@
                 return;
             }
 
-            // Update content display
+            // Display loading state
             contentDisplay.innerHTML = `
-                <h2 class="text-3xl font-bold mb-4 text-gray-900 chapter-title">${chapter.title}</h2>
-                <h3 class="text-2xl font-semibold mb-6 text-gray-800 section-title">${section.title}</h3>
-                <img src="${section.image.url}" alt="${section.image.alt}" class="w-full h-auto rounded-lg shadow-md mb-6 object-cover content-image">
-                <p class="text-gray-700 leading-relaxed">${section.text}</p>
+                <h2 class="text-3xl font-bold mb-4 chapter-title">${chapter.title}</h2>
+                <h3 class="text-2xl font-semibold mb-6 section-title">${section.title}</h3>
+                <div class="loading-spinner"></div>
+                <p class="text-center text-gray-400">Gerando imagem para esta seção...</p>
+            `;
+
+            // Generate image
+            const imageUrl = await generateImage(section.image.alt);
+
+            // Update content display with generated image or fallback
+            contentDisplay.innerHTML = `
+                <h2 class="text-3xl font-bold mb-4 chapter-title">${chapter.title}</h2>
+                <h3 class="text-2xl font-semibold mb-6 section-title">${section.title}</h3>
+                ${imageUrl ? `<img src="${imageUrl}" alt="${section.image.alt}" class="w-full h-auto rounded-lg shadow-md mb-6 object-cover content-image">` : `<div class="w-full h-64 bg-gray-700 rounded-lg flex items-center justify-center text-gray-400">Falha ao carregar imagem.</div>`}
+                <p class="text-gray-200 leading-relaxed">${section.text}</p>
             `;
 
             // Scroll to top of content display
